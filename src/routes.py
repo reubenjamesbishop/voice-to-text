@@ -3,13 +3,14 @@ from datetime import datetime
 import logging
 
 from .models import Transcript, TranscriptResponse
-from .AudioTranscriber import transcribe_file
+from .utils import transcribe_file
 
 router = APIRouter()
 
 @router.post("/voice-to-text", tags=['voice-to-text'], response_model=TranscriptResponse)
 async def create_transcription(file: UploadFile): 
 
+    # Reject requests without a valid audio file
     if file.content_type != "audio/mpeg":
         raise HTTPException(status_code=400, detail="Invalid file type. Please upload an MP3 file!")
 

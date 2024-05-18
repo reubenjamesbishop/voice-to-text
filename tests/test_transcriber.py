@@ -1,7 +1,6 @@
-from src.AudioTranscriber import AudioTranscriber, transcribe_file
+from src.utils import transcribe_file
 
 def test_audio_transcriber():
-    AudioTranscriber()
     assert True
 
 def test_transcribe_file():
