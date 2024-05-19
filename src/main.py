@@ -8,7 +8,7 @@ import os
 from datetime import datetime
 
 from .models import Transcript, TranscriptResponse
-from .utils import transcribe_file
+from .utils import transcribe_file, save_transcription_to_db
 
 load_dotenv()
 
@@ -35,28 +35,6 @@ async def app_init():
 def say_hello():
     return {"hello": "there"}
 
-async def save_transcription_to_db(file, transcript_text):
-    current_time: datetime = datetime.now()
-    t = Transcript(
-        audio_source=file.filename,
-        content=transcript_text,
-        status="complete",
-        created_time=f"{current_time}",
-        updated_time=f"{current_time}",
-    )
-    await t.create()
-
-    response = TranscriptResponse(
-        id=str(t.id),
-        audio_source=t.audio_source,
-        content=t.content,
-        status=t.status,
-        created_time=t.created_time,
-        updated_time=t.updated_time,
-    )
-
-    return response
-
 
 @app.post('/voice-to-text')
 async def handle_transcription(file: UploadFile):
@@ -66,7 +44,7 @@ async def handle_transcription(file: UploadFile):
 
     # Get the text from the mp3 file
     try:
-        # transcript_text = "some new test text from goobey" 
+        transcript_text = "some new test text from goobey" 
         transcript_text = transcribe_file(file.file)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Failed to transcribe audio. Message: {e}')

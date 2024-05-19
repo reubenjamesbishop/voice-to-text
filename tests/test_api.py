@@ -36,7 +36,7 @@ def test_transcribe_route(mocker):
         'updated_time': '2000-01-01 00:00:00.000000',
     }
 
-    file_path = './tests/test_file.mp3'
+    file_path = './tests/media/test_file.mp3'
     with open(file_path, "rb") as file:
         files = {"file": (file_path, file, "audio/mpeg")}
         resp = client.post('/voice-to-text', files=files)
@@ -55,7 +55,7 @@ def test_transcribe_route_handle_incorrect_file_type(mocker):
     """Test that the API can appropriately handle incorrect types of files (e.g., images)
     """
     
-    file_path = './tests/test_image.jpeg'
+    file_path = './tests/media/test_image.jpeg'
     with open(file_path, "rb") as file:
         files = {"file": (file_path, file, "image/jpeg")}
         resp = client.post('/voice-to-text', files=files)
