@@ -22,6 +22,13 @@ MONGO_CONNECTION_STRING="mongodb+srv://<DB_USERNAME>:<DB_PASWORD>@<CLUSTER>....m
 ASSEMBLY_AI_API_KEY="<YOUR ASSEMBLY AI API KEY>"
 ```
 
+Alternatively, export these variables in your local environment before running the server with:
+
+```bash
+export MONGO_CONNECTION_STRING="..."
+export ASSEMBLY_AI_API_KEY="..."
+```
+
 To start the API server locally, use the following command (from the project root):
 
 ```bash
