@@ -1,6 +1,8 @@
 from src.utils import transcribe_file
 
 def test_sanity():
+    """Sanity check to establish that tests are reachable by test client. 
+    """
     assert True
 
 def test_transcribe_file():
@@ -11,7 +13,7 @@ def test_transcribe_file():
         assert r == 'Thanks. Connecting you now.'
 
 def test_transcribe_file_no_input():
-    """Test that the transcribe function raises a value error if the file is missing.
+    """Test that the transcribe function raises the apprioriate exception if the file is missing.
     """
 
     try: 

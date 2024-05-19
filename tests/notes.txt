@@ -1,4 +1,0 @@
-- test transcription works
-- test transcaription fails on invalid 
-- test api handles non-post / invalid data 
-- test happy paths
