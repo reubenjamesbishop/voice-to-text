@@ -31,9 +31,7 @@ uvicorn src.main:app --reload
 To test, head to `localhost:8000` in your browser, and you should see the following:
 
 ```
-{
-    "hello": "there"
-}
+{"message": "hello world"}
 ```
 
 ## Using the API
@@ -54,6 +52,10 @@ From the root, simply run:
 ```bash
 pytest
 ```
+
+If using VSCode, test should be discoverable by the built in test runner (see below). Make sure to configure as per the instructions.
+
+![testing screenshot](/examples/test-screenshot.png)
 
 ## Extensions and improvements
 
