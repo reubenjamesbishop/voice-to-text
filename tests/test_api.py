@@ -15,7 +15,7 @@ def test_hello_route():
     """
     resp = client.get('/')
     assert resp.status_code == 200
-    assert resp.json() == {'hello': 'there'}
+    assert resp.json() == {'message': 'hello world'}
 
 
 def test_transcribe_route(mocker): 
