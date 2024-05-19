@@ -42,7 +42,6 @@ async def handle_transcription(file: UploadFile):
 
     # Get the text from the mp3 file
     try:
-        transcript_text = "some new test text from goobey" 
         transcript_text = transcribe_file(file.file)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Failed to transcribe audio. Message: {e}')
