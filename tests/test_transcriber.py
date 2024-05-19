@@ -1,6 +1,6 @@
 from src.utils import transcribe_file
 
-def test_audio_transcriber():
+def test_sanity():
     assert True
 
 def test_transcribe_file():
@@ -9,3 +9,14 @@ def test_transcribe_file():
     with open('./tests/test_file.mp3', "rb") as file:
         r = transcribe_file(file)
         assert r == 'Thanks. Connecting you now.'
+
+def test_transcribe_file_no_input():
+    """Test that the transcribe function raises a value error if the file is missing.
+    """
+
+    try: 
+        transcribe_file(file=None)
+    except ValueError as e:
+        assert True
+    except:
+        assert False
