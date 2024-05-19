@@ -14,30 +14,28 @@ load_dotenv()
 
 app = FastAPI()
 
-class Settings(BaseSettings):
-    mongo_host: str = "localhost"
-    mongo_user: str = "beanie"
-    mongo_pass: str = "beanie"
-    mongo_db: str = "beanie_db"
-
-    @property
-    def mongo_dsn(self):
-        return os.getenv('MONGO_CONNECTION_STRING')
-
 
 @app.on_event("startup")
 async def app_init():
-    client = motor.motor_asyncio.AsyncIOMotorClient(Settings().mongo_dsn)
+    """Initialise a mongoDB connection w/ Beanie when the FastAPI server is first initialised. 
+    """
+    client = motor.motor_asyncio.AsyncIOMotorClient(os.getenv('MONGO_CONNECTION_STRING'))    
     await init_beanie(client.beanie_db, document_models=[Transcript])
 
 
 @app.get('/')
 def say_hello():
+    """Simple default endpoint to check that the API server is up and running. 
+    """
     return {"hello": "there"}
 
 
 @app.post('/voice-to-text')
 async def handle_transcription(file: UploadFile):
+    """Route to handle transcription of posted mp3 audio files into text, and log transcription
+    documents and metadata in the accompanying MongoDB database.
+    """
+
     # Reject requests without a valid audio file
     if file.content_type != "audio/mpeg":
         raise HTTPException(status_code=400, detail="Invalid file type. Please upload an MP3 file!")
@@ -49,7 +47,11 @@ async def handle_transcription(file: UploadFile):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f'Failed to transcribe audio. Message: {e}')
 
-    response = await save_transcription_to_db(file, transcript_text)
+    # Save the transcription document in the MongoDB collection
+    try: 
+        response = await save_transcription_to_db(file, transcript_text)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Failed to save transcription in DB. Message: {e}')
 
     print(f"response: {response}")
     return response

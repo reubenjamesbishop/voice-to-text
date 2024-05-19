@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Dict
 import assemblyai as aai
 import os 
 from typing import BinaryIO
@@ -7,8 +7,7 @@ from datetime import datetime
 from .models import Transcript, TranscriptResponse
 
 def transcribe_file(file: BinaryIO, api_key: str=os.getenv('ASSEMBLY_AI_API_KEY')) -> str:
-    """
-    Function to handle the transcription of mp3 audio files into text, based on the Assembly AI SDK. 
+    """Function to handle the transcription of mp3 audio files into text, based on the Assembly AI SDK. 
     """
 
     if file is None:
@@ -23,7 +22,7 @@ def transcribe_file(file: BinaryIO, api_key: str=os.getenv('ASSEMBLY_AI_API_KEY'
     return transcript.text
 
 
-async def save_transcription_to_db(file, transcript_text):
+async def save_transcription_to_db(file: BinaryIO, transcript_text: str) -> Dict[str, str]:
     """Function to handle creation and saving of Transcription documents w/ Beanie and MongoDB
     """
     current_time: datetime = datetime.now()

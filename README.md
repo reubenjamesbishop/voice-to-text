@@ -54,3 +54,12 @@ From the root, simply run:
 ```bash
 pytest
 ```
+
+## Extensions and improvements
+
+This was a quick and simple approach, but some possible extensions and improvements could include;
+
+- Add caching to avoid repeating (potentially expensive) transcriptions
+- Add authentication + authorization system to track, manage and restrict usage
+- Add rate limiting to protect resources and avoid malicious usage
+- Extended functionality for retrieving transcriptions (by keyword / audio source / user etc.)
