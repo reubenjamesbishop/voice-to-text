@@ -7,6 +7,9 @@ def transcribe_file(file: BinaryIO, api_key: str=os.getenv('ASSEMBLY_AI_API_KEY'
     """
     Function to handle the transcription of mp3 audio files into text, based on the Assembly AI SDK. 
     """
+
+    if file is None:
+        raise ValueError("File is empty - please pass in a valid file.")
     
     aai.settings.api_key = api_key
 
