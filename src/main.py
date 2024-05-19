@@ -24,10 +24,10 @@ async def app_init():
 
 
 @app.get('/')
-def say_hello():
+def send_greeting():
     """Simple default endpoint to check that the API server is up and running. 
     """
-    return {"hello": "there"}
+    return {"message": "hello world"}
 
 
 @app.post('/voice-to-text')
